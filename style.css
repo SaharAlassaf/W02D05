@@ -1,0 +1,58 @@
+*{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
+}
+
+#cont{
+    display: flex;
+    justify-content: center;
+}
+
+#panel{
+    width: 40%;
+    height: 200px;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: rgb(34, 33, 33);
+    border: 2px solid white;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+}
+
+/*
+#panelCont{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+*/
+
+ul{
+    background-color: white;
+}
+
+ul li{
+    background-color: white;
+    list-style-type: none;
+}
+
+li:hover{
+    background-color: lightgray;
+}
+
+p{
+    color: white;
+}
+
+ul button{
+    border: none;
+    color: darkblue;
+    background-color: white;
+}
+
+
+.completed {
+    text-decoration: line-through;
+    color: rgb(182, 181, 181);
+}
