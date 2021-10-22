@@ -1,4 +1,7 @@
-let toDos =[{name: "eat", isCompleted: false}, {name: "work", isCompleted: true}];
+let toDos =[
+    {name: "eat", isCompleted: false}, 
+    {name: "work", isCompleted: true},
+];
 
 
 const deleteListItem = (index) => {
@@ -6,22 +9,35 @@ const deleteListItem = (index) => {
     renderList();
 }
 
+
 const updateListItem = (index) => {
-    $( "li" ).append(`<input type="text" name="inputLi" id="inputLi">`);
-    let toEdit = $('#inputLi').val();
-    toDos.push(item.name = toEdit);
+
+    //fetch li needs to change
+    let liName = toDos[index].name;
+    console.log(liName);
+
+    //change li content to input text
+	$( '.liList' ).html(`<input type="text" value="${liName}" id="input">`);
+    $( '.liList' ).find('#input').focus();
+
+    //change value in array
+    toDos[index].name = liName;
+
+    //change li content to previous format
+
+
+    console.log("e");
     renderList();
 }
 
-const notCompleted = () =>{
-    toDos = toDos.filter( (item, index) => !item.isCompleted);
-   return toDos.length;
-   renderList();
-}
 
-const Completed = (arr, index) => {
-    $('li').toggleClass('completed');
-    item.isCompleted = true;
+const Completed = (index) => {
+    toDos = toDos.map((item, i) => {
+        if (index === i){
+            return { ...item, isCompleted: !item.isCompleted};
+        } else return item;
+    });
+    renderList();
 }
 
 const renderList = () => {
@@ -30,38 +46,39 @@ $( "ul" ).html("");
 
 toDos.forEach((item, index) => {
 
-    $( "ul" ).append(`<li class="liList" onclick="Completed(${index})">${item.name}
-    <button class="btnChanges" id="btnChanges" onclick="updateListItem(${index})">EDIT</button>
-    <button class="btnChanges" id="btnRemove" onclick="deleteListItem(${index})">REMOVE</button>
+    $( "ul" ).append(`<li class="liList"> 
+    <span onclick="Completed(${index})" class=${item.isCompleted ? 'completed': ''}>${item.name}</span>
+    <a class="edit" onclick="updateListItem(${index})">EDIT</a>
+    <a class="remove" onclick="deleteListItem(${index})">REMOVE</a>
     </li>`)
 });
-}
 
+const notCompleted = toDos.filter( (item) => !item.isCompleted);
+$( "#p" ).html(`You have ${notCompleted.length} todos left`);
+
+
+}
 renderList();
 
-$( "#p" ).append(`You have ${notCompleted()} todos left`)
 
-$( "#btnClearL" ).click(() => { 
-    toDos.length = 0;  
-    $( "ul" ).html(""); 
-    $( "#p" ).remove();
-    $( "#p0" ).append("You have 0 todos left");
-    renderList();
-});
-
-$( "#btnClearC" ).click(() => { 
-    toDos = toDos.filter( (item) => item.isCompleted == true);
-    renderList();
-});
-
-
-$('#btnAdd').click((item, index) => {
+$( '#btnAdd' ).click((item, index) => {
     if ($( '#input' ).val() == '') {
 		return;
 	}
-
-    let toAdd = $('#input').val();
-    toDos.push({name: toAdd, isCompleted: false});
+    let newTask = $( '#input' ).val();
+    toDos.push({name: newTask, isCompleted: false});
     renderList();
     $( '#input' ).val(""); 
+});
+
+
+$( "#btnClearL" ).click(() => { 
+    toDos.length = 0;  
+    renderList();
+});
+
+
+$( "#btnClearC" ).click(() => { 
+    toDos = toDos.filter( (item) => !item.isCompleted);
+    renderList();
 });

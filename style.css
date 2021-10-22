@@ -9,8 +9,8 @@
 }
 
 #panel{
-    width: 40%;
-    height: 200px;
+    width: 80%;
+    height: auto;
     border-radius: 20px;
     padding: 20px;
     background-color: rgb(34, 33, 33);
@@ -35,6 +35,21 @@ ul{
 ul li{
     background-color: white;
     list-style-type: none;
+    padding: 8px 20px;
+    
+}
+
+ul a {
+    cursor: pointer;
+    margin-left: 1em;
+    font-size: .7em;
+    text-transform: uppercase;
+    color: navy;
+}
+
+li {
+    color: black;
+    display: list-item;
 }
 
 li:hover{
@@ -48,11 +63,16 @@ p{
 ul button{
     border: none;
     color: darkblue;
-    background-color: white;
+    background-color: transparent;
 }
 
 
 .completed {
     text-decoration: line-through;
     color: rgb(182, 181, 181);
+}
+
+
+span{
+    cursor: pointer;
 }
