@@ -10,25 +10,18 @@ const deleteListItem = (index) => {
 }
 
 
-const updateListItem = (index) => {
-
-    //fetch li needs to change
-    let liName = toDos[index].name;
-    console.log(liName);
+const updateListItem = (index) => {    
 
     //change li content to input text
-	$( '.liList' ).html(`<input type="text" value="${liName}" id="input">`);
-    $( '.liList' ).find('#input').focus();
-
-    //change value in array
-    toDos[index].name = liName;
-
-    //change li content to previous format
-
-
-    console.log("e");
-    renderList();
-}
+	$( '#liList-'+index ).html(`<input type="text" id='input-${index}''>`);
+    $( '#input-'+index ).val(toDos[index].name);
+    $( '#input-'+index ).change(() => {
+        //change value in array
+        toDos[index].name = $( '#input-'+index ).val();
+        console.log("e");
+        renderList();
+    });
+};
 
 
 const Completed = (index) => {
@@ -43,18 +36,23 @@ const Completed = (index) => {
 const renderList = () => {
 
 $( "ul" ).html("");
+let count = 0;
 
 toDos.forEach((item, index) => {
 
-    $( "ul" ).append(`<li class="liList"> 
-    <span onclick="Completed(${index})" class=${item.isCompleted ? 'completed': ''}>${item.name}</span>
+    $( "ul" ).append(`<li id="liList-${index}"> 
+    <span data-id="editable-list-item" onclick="Completed(${index})" class=${item.isCompleted ? 'completed': ''}>${item.name}</span>
     <a class="edit" onclick="updateListItem(${index})">EDIT</a>
     <a class="remove" onclick="deleteListItem(${index})">REMOVE</a>
     </li>`)
+
+    if (item.isCompleted === false) {
+      count++;
+    }
 });
 
 const notCompleted = toDos.filter( (item) => !item.isCompleted);
-$( "#p" ).html(`You have ${notCompleted.length} todos left`);
+$( "#p" ).html(`You have ${count} todos left`);
 
 
 }
